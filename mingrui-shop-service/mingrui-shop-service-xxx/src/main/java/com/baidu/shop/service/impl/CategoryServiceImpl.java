@@ -29,6 +29,8 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
 
     @Override
     public Result<List<CategoryEntity>> getCategoryByPid(Integer pid) {
+
+        System.out.println(1/0);
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setParentId(pid);
         List<CategoryEntity> list = categoryMapper.select(categoryEntity);
@@ -48,9 +50,8 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         if(ObjectUtil.isNull(categoryEntity)){
             return this.setResultError("数据不存在");
         }
-
         //判断当前节点是否为父节点
-        if(categoryEntity.getParentId() == 1) {
+        if(categoryEntity.getIsParent() == 1) {
             return this.setResultError("当前节点为父节点");
         }
 
@@ -68,9 +69,31 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
             updateCategoryEntity.setId(categoryEntity.getParentId());
             categoryMapper.updateByPrimaryKeySelective(updateCategoryEntity);
         }
-
         //通过id删除节点
         categoryMapper.deleteByPrimaryKey(id);
         return this.setResultSuccess();
     }
+
+    //修改 的
+    @Transactional  //作用提交事务      增删改查必须加这个
+    @Override
+    public Result<JsonObject> editCategory(CategoryEntity categoryEntity) {
+
+        categoryMapper.updateByPrimaryKeySelective(categoryEntity);
+        return this.setResultSuccess();
+    }
+    
+    // 新增分类
+    @Transactional  //作用提交事务      增删改查必须加这个
+    @Override
+    public Result<JsonObject> add(CategoryEntity categoryEntity) {
+        CategoryEntity parentCategoryEntity  = new CategoryEntity();
+        parentCategoryEntity.setId(categoryEntity.getParentId());
+        parentCategoryEntity.setIsParent(1);
+        categoryMapper.updateByPrimaryKeySelective(parentCategoryEntity);
+
+        categoryMapper.insertSelective(categoryEntity);
+        return this.setResultSuccess();
+    }
+
 }
