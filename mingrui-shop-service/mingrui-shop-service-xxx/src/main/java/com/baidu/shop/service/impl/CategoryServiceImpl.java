@@ -30,10 +30,17 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
     @Override
     public Result<List<CategoryEntity>> getCategoryByPid(Integer pid) {
 
-        System.out.println(1/0);
+        //    System.out.println(1/0);
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setParentId(pid);
         List<CategoryEntity> list = categoryMapper.select(categoryEntity);
+        return this.setResultSuccess(list);
+    }
+
+    @Override
+    public Result<List<CategoryEntity>> getCategoryByBrandId(Integer brandId) {
+        List<CategoryEntity> list = categoryMapper.getCategoryByBrandId(brandId);
+
         return this.setResultSuccess(list);
     }
 
@@ -82,7 +89,7 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         categoryMapper.updateByPrimaryKeySelective(categoryEntity);
         return this.setResultSuccess();
     }
-    
+
     // 新增分类
     @Transactional  //作用提交事务      增删改查必须加这个
     @Override

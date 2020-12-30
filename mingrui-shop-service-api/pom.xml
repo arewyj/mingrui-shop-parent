@@ -17,6 +17,14 @@
         <module>mingrui-shop-service-api-xxx</module>
     </modules>
     <dependencies>
+
+        <!--分页工具-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.10</version>
+        </dependency>
+
         <!-- SpringBoot-整合Web组件 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
