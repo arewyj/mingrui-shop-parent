@@ -61,12 +61,15 @@ public class SpecificationServiceImpl extends BaseApiService implements Specific
         return this.setResultSuccess();
     }
 
+    @Transactional
     @Override
     public Result<JSONObject> deleteSpecGroupInfo(Integer id) {
+
         Example example = new Example(SpecParamEntity.class);
         example.createCriteria().andEqualTo("groupId",id);
         List<SpecParamEntity> specParamEntities = specParamMapper.selectByExample(example);
         if(specParamEntities.size() != 0) return this.setResultError("绑定有规格组， 不能被删除");
+
         specGroupMapper.deleteByPrimaryKey(id);
         return  this.setResultSuccess();
     }
