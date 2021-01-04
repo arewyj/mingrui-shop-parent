@@ -74,7 +74,7 @@ public class SpecificationServiceImpl extends BaseApiService implements Specific
         return  this.setResultSuccess();
     }
 
-    //    ----------------------规格组------------------------------------
+    //    ----------------------规格组参数的增删改查------------------------------------
     @Override
     public Result<List<SpecParamEntity>> getSepcGroupInfo(SpecParamDTO specParamDTO) {
         SpecParamEntity specParamEntity = BaiduBeanUtil.copyProperties(specParamDTO, SpecParamEntity.class);
