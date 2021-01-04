@@ -65,32 +65,12 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
     @Transactional
     @Override
     public Result<JSONObject> saveBrandInfo(BrandDTO brandDTO) {
-        //新增返回主键?
-        //两种方式实现 select-key insert加两个属性
+        // 新增返回
         BrandEntity brandEntity = BaiduBeanUtil.copyProperties(brandDTO, BrandEntity.class);
         //处理品牌首字母
         brandEntity.setLetter(PinyinUtil.getUpperCase(String.valueOf(brandEntity.getName().toCharArray()[0]),false).toCharArray()[0]);
 
         brandMapper.insertSelective(brandEntity);
-
-      /*  //维护中间表数据
-        String categories = brandDTO.getCategories();//得到分类集合字符串
-        if (StringUtils.isEmpty(brandDTO.getCategories())) return this.setResultError("");
-
-        //判断分类集合字符串中是否包含,
-        if (categories.contains(",")) {//多个分类 --> 批量新增
-            categoryBrandMapper.insertList(
-                    Arrays.asList(categories.split(","))
-                            .stream()
-                            .map(categoryIdStr -> new CategoryBrandEntity(Integer.valueOf(categoryIdStr),brandEntity.getId()))
-                            .collect(Collectors.toList()));
-        } else { // 普通单个新增
-            CategoryBrandEntity categoryBrandEntity = new CategoryBrandEntity();
-            categoryBrandEntity.setBrandId(brandEntity.getId());
-            categoryBrandEntity.setCategoryId(Integer.valueOf(categories));
-
-            categoryBrandMapper.insertSelective(categoryBrandEntity);
-        }*/
 
         this.insertCategoryBrandList(brandDTO.getCategories(),brandDTO.getId());
 
