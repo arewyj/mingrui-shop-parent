@@ -94,7 +94,6 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
 
         this.insertCategoryBrandList(brandDTO.getCategories(),brandDTO.getId());
 
-
         return this.setResultSuccess();
     }
 
