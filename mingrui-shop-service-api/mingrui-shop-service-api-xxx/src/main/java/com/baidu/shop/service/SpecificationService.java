@@ -27,7 +27,6 @@ public interface SpecificationService {
        Result<List<SpecGroupEntity>> getSepcGroupInfo(SpecGroupDTO specGroupDTO);
 
        //新增  specgroup/save
-
       @ApiOperation(value = "新增规格组")
       @PostMapping(value = "specgroup/save")
       Result<JSONObject> save(@RequestBody SpecGroupDTO specGroupDTO);
@@ -42,6 +41,8 @@ public interface SpecificationService {
     @DeleteMapping(value = "specgroup/delete")
     Result<JSONObject> deleteSpecGroupInfo(Integer id);
 
+
+    // ---------------规格组下的规格参数的 增删改查
     // specparam/list?
     @ApiOperation(value = "通过条件查询规格参数")
     @GetMapping(value = "specparam/list")

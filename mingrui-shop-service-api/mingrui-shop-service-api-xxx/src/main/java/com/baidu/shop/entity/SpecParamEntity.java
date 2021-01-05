@@ -37,6 +37,4 @@ public class SpecParamEntity {
 
     private String segments;
 
-
-
 }
