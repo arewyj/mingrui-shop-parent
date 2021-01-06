@@ -71,9 +71,9 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
             */
 
             // 第三种
-            List<CategoryEntity> categoryEntities = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3()));
+           // List<CategoryEntity> categoryEntities = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3()));
 
-            String categoryName = categoryEntities.stream().map(categoryEntity -> categoryEntity.getName()).collect(Collectors.joining("/"));
+            String categoryName = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3())).stream().map(categoryEntity -> categoryEntity.getName()).collect(Collectors.joining("/"));
             spuDTO1.setCategoryName(categoryName);
 
           /*  第二种
