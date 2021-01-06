@@ -94,6 +94,16 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
     }
 
 
+
+
+    //  通过分类id查询品牌
+    @Override
+    public Result<List<BrandEntity>> getBrandInfoByCategoryId(Integer cid) {
+        List<BrandEntity> list = brandMapper.getBrandInfoByCategoryId(cid);
+        return this.setResultSuccess(list);
+    }
+
+
     ///  修改
     @Override
     public Result<JSONObject> editBrandInfo(BrandDTO brandDTO) {
