@@ -15,11 +15,11 @@ import com.baidu.shop.utils.BaiduBeanUtil;
 import com.baidu.shop.utils.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,11 +35,13 @@ import java.util.stream.Collectors;
 @RestController
 public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
-    @Autowired
+    @Resource
     private SpuMapper spuMapper;
-    @Autowired
+
+    @Resource
     private CategoryMapper categoryMapper;
-    @Autowired
+
+    @Resource
     private BrandMapper brandMapper;
 
     @Override
@@ -63,27 +65,30 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
         List<SpuDTO> spuDTOList  = spuEntities.stream().map(spuEntity -> {
             SpuDTO spuDTO1 = BaiduBeanUtil.copyProperties(spuEntity, SpuDTO.class);
-           /* // 第一种
+             /* // 第一种
             CategoryEntity categoryEntity = categoryMapper.selectByPrimaryKey(spuEntity.getCid1());
             CategoryEntity categoryEntity2 = categoryMapper.selectByPrimaryKey(spuEntity.getCid2());
             CategoryEntity categoryEntity3 = categoryMapper.selectByPrimaryKey(spuEntity.getCid3());
             spuDTO1.setCategoryName(categoryEntity.getName() + "/" + categoryEntity2.getName() + "/" + categoryEntity3.getName());
             */
 
-            // 第三种
-           // List<CategoryEntity> categoryEntities = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3()));
-
-            String categoryName = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3())).stream().map(categoryEntity -> categoryEntity.getName()).collect(Collectors.joining("/"));
-            spuDTO1.setCategoryName(categoryName);
-
-          /*  第二种
+              /*  第二种
+            List<CategoryEntity> categoryEntities = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3()));
             String categoryName = "";
             List<String> categoryNames = new ArrayList<>();
-            categoryNames.set(0,"");
+            categoryNames.add(0,"");
             categoryEntities.stream().forEach(categoryEntity -> {
                 categoryNames.set(0,categoryNames.get(0) + categoryEntity.getName() + "/");
             });
-            categoryName = categoryNames.get(0).substring(0,categoryNames.get(0).length());*/
+            categoryName =  categoryNames.get(0).substring(0,categoryNames.get(0).length());
+            spuDTO1.setCategoryName(categoryName); */
+
+
+            // 第三种
+            List<CategoryEntity> categoryEntities = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3()));
+
+            String categoryName = categoryEntities.stream().map(categoryEntity -> categoryEntity.getName()).collect(Collectors.joining("/"));
+            spuDTO1.setCategoryName(categoryName);
 
             //品牌名称
             BrandEntity brandEntity = brandMapper.selectByPrimaryKey(spuEntity.getBrandId());
