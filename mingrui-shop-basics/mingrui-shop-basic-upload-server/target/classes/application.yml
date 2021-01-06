@@ -9,6 +9,14 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+fdfs:
+  so-timeout: 1501
+  connect-timeout: 601
+  thumb-image: # 缩略图
+    width: 60
+    height: 60
+  tracker-list: # tracker地址
+    - 81.70.218.233:22122
 
 mingrui:
   upload:
@@ -16,4 +24,4 @@ mingrui:
       windows: E:\\images
       linux: /wang/images
     img:
-      host: http://image.mrshop.com
+      host: http://81.70.218.233/

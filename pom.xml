@@ -7,6 +7,7 @@
     <groupId>com.baidu</groupId>
     <artifactId>mingrui-shop-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>mingrui-shop-basics</module>
         <module>mingrui-shop-service</module>
