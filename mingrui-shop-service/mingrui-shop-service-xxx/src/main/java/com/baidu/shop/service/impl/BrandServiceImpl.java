@@ -104,7 +104,8 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
     }
 
 
-    ///  修改
+
+    @Transactional      // 修改
     @Override
     public Result<JSONObject> editBrandInfo(BrandDTO brandDTO) {
 
