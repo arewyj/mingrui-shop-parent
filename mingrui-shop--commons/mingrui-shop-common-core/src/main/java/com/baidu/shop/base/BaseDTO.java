@@ -8,7 +8,7 @@ import lombok.Data;
  * @ClassName BaseDTO
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/18
+ * @Date 2021/1/19
  * @Version V1.0
  **/
 @Data

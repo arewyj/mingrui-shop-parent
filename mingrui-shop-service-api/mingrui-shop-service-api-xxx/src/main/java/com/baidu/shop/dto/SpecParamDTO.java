@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * @ClassName SpecParamDTO
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/18
+ * @Date 2021/1/19
  * @Version V1.0
  **/
 @ApiModel(value = "规格参数数据传输DTO")

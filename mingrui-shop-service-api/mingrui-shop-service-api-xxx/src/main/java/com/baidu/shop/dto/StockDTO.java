@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * @ClassName StockDTO
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/18
+ * @Date 2021/1/19
  * @Version V1.0
  **/
 @ApiModel(value = "库存数据传输类")

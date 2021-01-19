@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * @ClassName SpuDetailEntity
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/18
+ * @Date 2021/1/19
  * @Version V1.0
  **/
 @Table(name = "tb_spu_detail")

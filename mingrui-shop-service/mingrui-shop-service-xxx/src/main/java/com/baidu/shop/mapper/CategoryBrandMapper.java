@@ -8,7 +8,7 @@ import tk.mybatis.mapper.common.special.InsertListMapper;
  * @ClassName CategoryBrandMapper
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/18
+ * @Date 2021/1/19
  * @Version V1.0
  **/
 public interface CategoryBrandMapper  extends InsertListMapper<CategoryBrandEntity>, Mapper<CategoryBrandEntity> {

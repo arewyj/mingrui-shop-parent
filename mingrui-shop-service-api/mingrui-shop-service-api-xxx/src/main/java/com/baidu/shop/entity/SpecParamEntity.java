@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * @ClassName SpecParamEntity
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/18
+ * @Date 2021/1/19
  * @Version V1.0
  **/
 @Table(name = "tb_spec_param")

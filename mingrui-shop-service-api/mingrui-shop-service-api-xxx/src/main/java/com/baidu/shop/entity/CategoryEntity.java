@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @ClassName CategoryEntity
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/18
+ * @Date 2021/1/19
  * @Version V1.0
  **/
 @ApiModel(value = "分类实体类")

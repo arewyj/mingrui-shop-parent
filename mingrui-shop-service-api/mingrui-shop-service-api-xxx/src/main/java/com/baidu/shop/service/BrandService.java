@@ -17,7 +17,7 @@ import java.util.List;
  * @ClassName BrandService
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/18
+ * @Date 2021/1/19
  * @Version V1.0
  **/
 @Api(tags = "品牌接口")
