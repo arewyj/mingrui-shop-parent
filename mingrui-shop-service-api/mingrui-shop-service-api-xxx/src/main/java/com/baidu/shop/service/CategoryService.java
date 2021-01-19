@@ -15,8 +15,8 @@ import java.util.List;
 /**
  * @ClassName CategoryService
  * @Description: TODO
- * @Author wangyanjun
- * @Date 2020/12/22
+ * @Author wyj
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @Api(tags = "商品分类接口")
@@ -26,7 +26,6 @@ public interface CategoryService {
     @GetMapping(value = "category/list")
     Result<List<CategoryEntity>> getCategoryByPid(Integer pid);
 
-    // /category/brand
     @ApiOperation(value = "通过品牌ID查询分类信息")
     @GetMapping(value = "category/brand")
     Result<List<CategoryEntity>> getCategoryByBrandId(Integer brandId);
@@ -36,12 +35,12 @@ public interface CategoryService {
     @DeleteMapping(value = "category/del")
     Result<JsonObject> delCategory(Integer id);
 
-    // /category/save  添加
+
     @ApiOperation(value = "新增分类")
     @PostMapping(value = "category/save")
     Result<JsonObject> add(@Validated({MingruiOperation.Add.class}) @RequestBody CategoryEntity categoryEntity);
 
-    //category/edit
+
     @ApiOperation(value = "更新")
     @PutMapping(value = "category/edit")
     Result<JsonObject> editCategory(@Validated({MingruiOperation.Update.class}) @RequestBody CategoryEntity categoryEntity);

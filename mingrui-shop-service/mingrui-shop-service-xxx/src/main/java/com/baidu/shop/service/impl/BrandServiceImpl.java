@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
 /**
  * @ClassName BrandServiceImpl
  * @Description: TODO
- * @Author wangyanjun
- * @Date 2020/12/25
+ * @Author wyj
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @RestController
@@ -83,17 +83,10 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
     public Result<JSONObject> deleteBrandInfo(Integer id) {
         brandMapper.deleteByPrimaryKey(id);
 
-       /* Example example = new Example(CategoryBrandEntity.class);
-
-        example.createCriteria().andEqualTo("brandId",id);
-        categoryBrandMapper.deleteByExample(example);*/
-
         this.deleteCategoryBrandByBrandId(id);
 
         return this.setResultSuccess();
     }
-
-
 
 
     //  通过分类id查询品牌
@@ -102,8 +95,6 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
         List<BrandEntity> list = brandMapper.getBrandInfoByCategoryId(cid);
         return this.setResultSuccess(list);
     }
-
-
 
     @Transactional      // 修改
     @Override
@@ -117,47 +108,16 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
         brandMapper.updateByPrimaryKeySelective(brandEntity);
 
 
-      /*  Example example = new Example(CategoryBrandEntity.class);
-
-        example.createCriteria().andEqualTo("brandId",brandEntity.getId());
-        categoryBrandMapper.deleteByExample(example);*/
-
         this.deleteCategoryBrandByBrandId(brandDTO.getId());
-
-       /* //维护中间表数据
-        String categories = brandDTO.getCategories();//得到分类集合字符串
-        if (StringUtils.isEmpty(brandDTO.getCategories())) return this.setResultError("");
-
-        //判断分类集合字符串中是否包含,
-        if (categories.contains(",")) {//多个分类 --> 批量新增
-            categoryBrandMapper.insertList(
-                    Arrays.asList(categories.split(","))
-                            .stream()
-                            .map(categoryIdStr -> new CategoryBrandEntity(Integer.valueOf(categoryIdStr),brandEntity.getId()))
-                            .collect(Collectors.toList()));
-        } else { // 普通单个新增
-            CategoryBrandEntity categoryBrandEntity = new CategoryBrandEntity();
-            categoryBrandEntity.setBrandId(brandEntity.getId());
-            categoryBrandEntity.setCategoryId(Integer.valueOf(categories));
-
-            categoryBrandMapper.insertSelective(categoryBrandEntity);
-        }*/
 
         this.insertCategoryBrandList(brandDTO.getCategories(),brandDTO.getId());
 
         return this.setResultSuccess();
     }
 
-
-    // 删除的发公共 方法
+    //--------------------------------提取的公共方法
     private void insertCategoryBrandList(String categories,Integer brandId){
-        //将公共的代码抽取出来
-        //看是否需要返回值
-        //看抽取出来的方法是否需要别的类调用
-        //抽取出来的代码哪里报错,查看报错信息,用方法的参数代替(可变的内容当做方法的参数)
-        //如果有不重要的返回值代码 --> 手动抛自定义异常(全局异常处理会帮我们处理)
-        //维护中间表数据
-        // String categories = brandDTO.getCategories();//得到分类集合字符串
+
         if (StringUtils.isEmpty(categories)) throw  new RuntimeException("分类信息不能为空");
 
         //判断分类集合字符串中是否包含,
@@ -176,8 +136,6 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
 
     }
 
-
-    // 修改和 删除 里公共的 删除 关系表的代码  提取出来
     private void deleteCategoryBrandByBrandId(Integer brandId){
         Example example = new Example(CategoryBrandEntity.class);
 

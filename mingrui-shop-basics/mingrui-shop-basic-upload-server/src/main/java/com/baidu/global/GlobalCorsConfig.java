@@ -10,7 +10,7 @@ import org.springframework.web.filter.CorsFilter;
  * @ClassName GlobalCorsConfig
  * @Description: TODO
  * @Author wyj
- * @Date 2020/12/29
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @Configuration

@@ -18,7 +18,7 @@ import java.util.List;
  * @ClassName SpecificationService
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/4
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @Api(tags = "规格接口")
@@ -28,7 +28,6 @@ public interface SpecificationService {
        @GetMapping(value = "specgroup/getSpecGroupInfo")
        Result<List<SpecGroupEntity>> getSepcGroupInfo(SpecGroupDTO specGroupDTO);
 
-       //新增  specgroup/save
       @ApiOperation(value = "新增规格组")
       @PostMapping(value = "specgroup/save")
       Result<JSONObject> save(@Validated({MingruiOperation.Add.class}) @RequestBody SpecGroupDTO specGroupDTO);
@@ -38,19 +37,15 @@ public interface SpecificationService {
     @PutMapping(value = "specgroup/save")
     Result<JSONObject> editSpecGroup(@Validated({MingruiOperation.Update.class}) @RequestBody SpecGroupDTO specGroupDTO);
 
-    //specgroup/deleteSpecGroupInfo  删除
     @ApiOperation(value = "删除规格组")
     @DeleteMapping(value = "specgroup/delete")
     Result<JSONObject> deleteSpecGroupInfo(Integer id);
 
 
-    // ---------------规格组下的规格参数的 增删改查
-    // specparam/list?
     @ApiOperation(value = "通过条件查询规格参数")
     @GetMapping(value = "specparam/list")
     Result<List<SpecParamEntity>> getSpecParamInfo(SpecParamDTO specParamDTO);
 
-    // specparam/save
     @ApiOperation(value = "新增规格参数")
     @PostMapping(value = "specparam/save")
     Result<JSONObject> save(@Validated({MingruiOperation.Add.class}) @RequestBody SpecParamDTO specParamDTO);
@@ -59,7 +54,6 @@ public interface SpecificationService {
     @PutMapping(value = "specparam/save")
     Result<JSONObject> editSpecParam(@Validated({MingruiOperation.Update.class}) @RequestBody SpecParamDTO specParamDTO);
 
-    //specparam/del  删除
     @ApiOperation(value = "删除规格参数")
     @DeleteMapping(value = "specparam/del")
     Result<JSONObject> deleteSpecParamInfo(Integer id);

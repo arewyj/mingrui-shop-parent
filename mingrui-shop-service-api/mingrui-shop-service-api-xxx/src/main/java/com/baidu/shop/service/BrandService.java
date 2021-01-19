@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * @ClassName BrandService
  * @Description: TODO
- * @Author wangyanjun
- * @Date 2020/12/25
+ * @Author wyj
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @Api(tags = "品牌接口")
@@ -27,18 +27,17 @@ public interface BrandService {
     @GetMapping(value = "brand/list")
     Result<PageInfo<BrandEntity>> getBrandData(BrandDTO brandDTO);
 
-    //添加 /brand/save
+
     @ApiOperation(value = "添加品牌信息")
     @PostMapping(value = "brand/save")
     Result<JSONObject> saveBrandInfo(@Validated({MingruiOperation.Add.class}) @RequestBody BrandDTO brandDTO);
 
 
-    //添加 /brand/save
     @ApiOperation(value = "修改品牌信息")
     @PutMapping(value = "brand/save")
     Result<JSONObject> editBrandInfo(@Validated({MingruiOperation.Update.class}) @RequestBody BrandDTO brandDTO);
 
-    // /brand/delete  删除
+
     @ApiOperation(value = "删除品牌信息")
     @DeleteMapping(value = "brand/delete")
     Result<JSONObject> deleteBrandInfo(Integer id);

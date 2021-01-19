@@ -20,8 +20,8 @@ import java.util.List;
 /**
  * @ClassName CategoryServiceImpl
  * @Description: TODO
- * @Author wangyanjun
- * @Date 2020/12/22
+ * @Author wyj
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @RestController
@@ -35,8 +35,6 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
 
     @Override
     public Result<List<CategoryEntity>> getCategoryByPid(Integer pid) {
-
-        //    System.out.println(1/0);
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setParentId(pid);
         List<CategoryEntity> list = categoryMapper.select(categoryEntity);
@@ -50,38 +48,33 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         return this.setResultSuccess(list);
     }
 
-    @Transactional  //作用提交事务      增删改查必须加这个
+    @Transactional
     @Override
     public Result<JsonObject> delCategory(Integer id) {
 
         //校验id是否合法
-        if(ObjectUtil.isNull(id) || id <= 0 ){
-            return this.setResultError("id不合法");
-        }
+        if(ObjectUtil.isNull(id) || id <= 0 ) return this.setResultError("id不合法");
+
         CategoryEntity categoryEntity = categoryMapper.selectByPrimaryKey(id);
 
-        if(ObjectUtil.isNull(categoryEntity)){
-            return this.setResultError("数据不存在");
-        }
+        if(ObjectUtil.isNull(categoryEntity)) return this.setResultError("数据不存在");
+
         //判断当前节点是否为父节点
-        if(categoryEntity.getIsParent() == 1) {
-            return this.setResultError("当前节点为父节点");
-        }
+        if(categoryEntity.getIsParent() == 1) return this.setResultError("当前节点为父节点");
+
 
         Example example1 = new Example(CategoryBrandEntity.class);
         example1.createCriteria().andEqualTo("categoryId",id);
         List<CategoryBrandEntity> categoryBrandEntities = categoryBrandMapper.selectByExample(example1);
-        if(categoryBrandEntities.size() != 0 ){
+        if(categoryBrandEntities.size() != 0 )
             return this.setResultError("已绑定不能被删除");
-        }
 
-        //通过当前节点的父节点id 查询 当前节点(将要被删除的节点)的父节点下是否还有其他子节点
+
         Example example = new Example(CategoryEntity.class);
         example.createCriteria().andEqualTo("parentId",categoryEntity.getParentId());
 
         List<CategoryEntity> categoryList  = categoryMapper.selectByExample(example);
 
-        //如果size <= 1 --> 如果当前节点被删除的话 当前节点的父节点下没有节点了 --> 将当前节点的父节点状态改为叶子节点
         if(categoryList.size() <= 1){
             CategoryEntity updateCategoryEntity  = new CategoryEntity();
             updateCategoryEntity.setIsParent(0);
@@ -93,8 +86,7 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         return this.setResultSuccess();
     }
 
-    //修改 的
-    @Transactional  //作用提交事务      增删改查必须加这个
+    @Transactional
     @Override
     public Result<JsonObject> editCategory(CategoryEntity categoryEntity) {
 
@@ -102,8 +94,7 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         return this.setResultSuccess();
     }
 
-    // 新增分类
-    @Transactional  //作用提交事务      增删改查必须加这个
+    @Transactional
     @Override
     public Result<JsonObject> add(CategoryEntity categoryEntity) {
         CategoryEntity parentCategoryEntity  = new CategoryEntity();

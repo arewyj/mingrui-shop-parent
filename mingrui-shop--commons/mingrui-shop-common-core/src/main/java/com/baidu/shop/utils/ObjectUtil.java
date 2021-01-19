@@ -2,8 +2,8 @@ package com.baidu.shop.utils;
 /**
  * @ClassName ObjectUtil
  * @Description: TODO
- * @Author wangyanjun
- * @Date 2020/12/23
+ * @Author wyj
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 public class ObjectUtil {

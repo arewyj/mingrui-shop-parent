@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 /**
  * @ClassName BrandDTO
  * @Description: TODO
- * @Author wangyanjun
- * @Date 2020/12/25
+ * @Author wyj
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @ApiModel(value = "品牌DTO")

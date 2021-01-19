@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * @ClassName CategoryBrandEntity
  * @Description: TODO
  * @Author wyj
- * @Date 2020/12/28
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @Data

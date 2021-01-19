@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * @ClassName GoodsServiceImpl
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/5
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @RestController
@@ -56,7 +56,6 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
     @Resource
     private StockMapper stockMapper;
 
-    //----------------------------------------商品信息 的查询
     @Override
     public Result<List<SpuDTO>> getSupInfo(SpuDTO spuDTO) {
         // 分页
@@ -82,24 +81,7 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
         List<SpuDTO> spuDTOList  = spuEntities.stream().map(spuEntity -> {
             SpuDTO spuDTO1 = BaiduBeanUtil.copyProperties(spuEntity, SpuDTO.class);
-             /* // 第一种
-            CategoryEntity categoryEntity = categoryMapper.selectByPrimaryKey(spuEntity.getCid1());
-            CategoryEntity categoryEntity2 = categoryMapper.selectByPrimaryKey(spuEntity.getCid2());
-            CategoryEntity categoryEntity3 = categoryMapper.selectByPrimaryKey(spuEntity.getCid3());
-            spuDTO1.setCategoryName(categoryEntity.getName() + "/" + categoryEntity2.getName() + "/" + categoryEntity3.getName());
-            */
-              /*  第二种
-            List<CategoryEntity> categoryEntities = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3()));
-            String categoryName = "";
-            List<String> categoryNames = new ArrayList<>();
-            categoryNames.add(0,"");
-            categoryEntities.stream().forEach(categoryEntity -> {
-                categoryNames.set(0,categoryNames.get(0) + categoryEntity.getName() + "/");
-            });
-            categoryName =  categoryNames.get(0).substring(0,categoryNames.get(0).length());
-            spuDTO1.setCategoryName(categoryName); */
 
-            // 第三种
             List<CategoryEntity> categoryEntities = categoryMapper.selectByIdList(Arrays.asList(spuEntity.getCid1(), spuEntity.getCid2(), spuEntity.getCid3()));
 
             String categoryName = categoryEntities.stream().map(categoryEntity -> categoryEntity.getName()).collect(Collectors.joining("/"));
@@ -113,14 +95,13 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         }).collect(Collectors.toList());
 
         PageInfo<SpuEntity> spuEntityPageInfo = new PageInfo<>(spuEntities);
-      //  return this.setResultSuccess(spuEntityPageInfo);
         return this.setResult(HTTPStatus.OK,spuEntityPageInfo.getTotal() + "" ,spuDTOList);
     }
 
     @Transactional
-    @Override  // 添加
+    @Override
     public Result<JSONObject> saveGoods(SpuDTO spuDTO) {
-        //   log.info("{}",spuDTO);
+
         final Date date = new Date();
         //新增 spu 新增需要设置 返回主键 @GeneratedValue(strategy = GenerationType.IDENTITY )  给必要的字段赋默认值
         SpuEntity spuEntity = BaiduBeanUtil.copyProperties(spuDTO, SpuEntity.class);
@@ -138,21 +119,7 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
         // 新增 sku 和 stock
         this.saveSkuAndStockInfo(spuDTO,spuEntity.getId(),date);
-       /*  已被提取
-       //新增 sku
-        List<SkuDTO> skus = spuDTO.getSkus();
-        skus.stream().forEach(skuDTO -> {
-            SkuEntity skuEntity = BaiduBeanUtil.copyProperties(skuDTO, SkuEntity.class);
-            skuEntity.setSpuId(spuEntity.getId());
-            skuEntity.setCreateTime(date);
-            skuEntity.setLastUpdateTime(date);
-            skuMapper.insertSelective(skuEntity);
-            // 新增 stock
-            StockEntity stockEntity = new StockEntity();
-            stockEntity.setSkuId(skuEntity.getId());
-            stockEntity.setStock(skuDTO.getStock());
-            stockMapper.insertSelective(stockEntity);
-        });*/
+
 
         return this.setResultSuccess();
     }

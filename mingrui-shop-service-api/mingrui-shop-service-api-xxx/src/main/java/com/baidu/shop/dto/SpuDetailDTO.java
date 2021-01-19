@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * @ClassName SpuDetailDTO
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/7
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @ApiModel(value = "spu大字段数据传输类")

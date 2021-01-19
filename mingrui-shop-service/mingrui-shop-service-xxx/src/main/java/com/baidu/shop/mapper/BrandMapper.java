@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * @ClassName BrandMapper
  * @Description: TODO
- * @Author wangyanjun
- * @Date 2020/12/25
+ * @Author wyj
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 public interface BrandMapper extends Mapper<BrandEntity> {

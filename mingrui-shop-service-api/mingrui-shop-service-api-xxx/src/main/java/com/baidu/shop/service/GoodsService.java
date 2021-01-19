@@ -18,7 +18,7 @@ import java.util.List;
  * @ClassName GoodsService
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/5
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @Api(tags = "商品接口")
@@ -40,18 +40,17 @@ public interface GoodsService {
     @DeleteMapping(value = "goods/delete")
     Result<JSONObject> deleteGoods(Integer spuId);
 
-    // /goods/getSpuDetailBySpuId
+
     @ApiOperation(value = "通过spuid查询SpuDetail的信息")
     @GetMapping(value = "goods/getSpuDetailBySpuId")
     Result<SpuDetailEntity> getSpuDetailBySpuId(Integer spuId);
 
-    // goods/getSkuBySpuId
+
     @ApiOperation(value = "通过spuid查询sku的信息")
     @GetMapping(value = "goods/getSkuBySpuId")
     Result<List<SkuDTO>> getSkuBySpuId(Integer spuId);
 
 
-    // goods/alterSaleable
     @ApiOperation(value = "商品上架和下架")
     @PutMapping(value = "goods/alterSaleable")
     Result<JSONObject> alterSaleable(@Validated({MingruiOperation.Update.class}) @RequestBody SpuDTO spuDTO);

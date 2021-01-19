@@ -29,7 +29,6 @@ ribbon:
   MaxAutoRetriesNextServer: 2 # 同一服务不同实例的重试次数
   MaxAutoRetries: 1 # 同一实例的重试次数
 
-
 hystrix:
   command:
     default:
@@ -37,7 +36,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 10000 # 熔断超时时长：6000ms
-
 
 
 eureka:

@@ -13,7 +13,7 @@ import java.util.List;
  * @ClassName SkuMapper
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/7
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 public interface SkuMapper extends Mapper<SkuEntity>, InsertListMapper<SkuEntity>, DeleteByIdListMapper<SkuEntity,Long> {

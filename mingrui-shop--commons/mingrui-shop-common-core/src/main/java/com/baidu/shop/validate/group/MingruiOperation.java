@@ -3,8 +3,8 @@ package com.baidu.shop.validate.group;
 /**
  * @ClassName MingruiOperation
  * @Description: TODO
- * @Author wangyanjun
- * @Date 2020/12/24
+ * @Author wyj
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 public class MingruiOperation {

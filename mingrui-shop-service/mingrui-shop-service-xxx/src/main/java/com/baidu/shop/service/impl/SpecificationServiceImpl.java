@@ -23,7 +23,7 @@ import java.util.List;
  * @ClassName SpecificationServiceImpl
  * @Description: TODO
  * @Author wyj
- * @Date 2021/1/4
+ * @Date 2021/1/18
  * @Version V1.0
  **/
 @RestController
@@ -34,6 +34,44 @@ public class SpecificationServiceImpl extends BaseApiService implements Specific
 
     @Autowired
     private SpecParamMapper specParamMapper;
+
+    @Override
+    public Result<List<SpecParamEntity>> getSpecParamInfo(SpecParamDTO specParamDTO) {
+        SpecParamEntity specParamEntity = BaiduBeanUtil.copyProperties(specParamDTO, SpecParamEntity.class);
+        Example example = new Example(SpecParamEntity.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        if(ObjectUtil.isNotNull(specParamEntity.getGroupId()))
+            criteria .andEqualTo("groupId",specParamEntity.getGroupId());
+
+        if(ObjectUtil.isNotNull(specParamEntity.getCid()))
+            criteria.andEqualTo("cid",specParamEntity.getCid());
+
+        List<SpecParamEntity> specParamEntities = specParamMapper.selectByExample(example);
+        return this.setResultSuccess(specParamEntities);
+    }
+
+    @Transactional
+    @Override
+    public Result<JSONObject> save(SpecParamDTO specParamDTO) {
+
+        specParamMapper.insertSelective(BaiduBeanUtil.copyProperties(specParamDTO,SpecParamEntity.class));
+        return this.setResultSuccess();
+    }
+
+    @Transactional
+    @Override
+    public Result<JSONObject> editSpecParam(SpecParamDTO specParamDTO) {
+        specParamMapper.updateByPrimaryKeySelective(BaiduBeanUtil.copyProperties(specParamDTO,SpecParamEntity.class));
+        return this.setResultSuccess();
+    }
+
+    @Transactional
+    @Override
+    public Result<JSONObject> deleteSpecParamInfo(Integer id) {
+        specParamMapper.deleteByPrimaryKey(id);
+        return this.setResultSuccess();
+    }
 
     @Override
     public Result<List<SpecGroupEntity>> getSepcGroupInfo(SpecGroupDTO specGroupDTO) {
@@ -74,43 +112,7 @@ public class SpecificationServiceImpl extends BaseApiService implements Specific
         return  this.setResultSuccess();
     }
 
-    //    ----------------------规格组参数的增删改查------------------------------------
-    @Override
-    public Result<List<SpecParamEntity>> getSpecParamInfo(SpecParamDTO specParamDTO) {
-        SpecParamEntity specParamEntity = BaiduBeanUtil.copyProperties(specParamDTO, SpecParamEntity.class);
-        Example example = new Example(SpecParamEntity.class);
-        Example.Criteria criteria = example.createCriteria();
 
-        if(ObjectUtil.isNotNull(specParamEntity.getGroupId()))
-            criteria .andEqualTo("groupId",specParamEntity.getGroupId());
 
-        if(ObjectUtil.isNotNull(specParamEntity.getCid()))
-            criteria.andEqualTo("cid",specParamEntity.getCid());
-
-        List<SpecParamEntity> specParamEntities = specParamMapper.selectByExample(example);
-        return this.setResultSuccess(specParamEntities);
-    }
-
-    @Transactional  // 添加
-    @Override
-    public Result<JSONObject> save(SpecParamDTO specParamDTO) {
-
-        specParamMapper.insertSelective(BaiduBeanUtil.copyProperties(specParamDTO,SpecParamEntity.class));
-        return this.setResultSuccess();
-    }
-
-    @Transactional  // 修改
-    @Override
-    public Result<JSONObject> editSpecParam(SpecParamDTO specParamDTO) {
-          specParamMapper.updateByPrimaryKeySelective(BaiduBeanUtil.copyProperties(specParamDTO,SpecParamEntity.class));
-         return this.setResultSuccess();
-    }
-
-    @Transactional  // 删除
-    @Override
-    public Result<JSONObject> deleteSpecParamInfo(Integer id) {
-        specParamMapper.deleteByPrimaryKey(id);
-        return this.setResultSuccess();
-    }
 
 }
