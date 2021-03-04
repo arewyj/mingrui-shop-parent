@@ -27,7 +27,7 @@ public interface GoodsService {
 
     @ApiOperation(value = "获取spu信息")
     @GetMapping(value = "goods/getSpuInfo")
-    Result<List<SpuDTO>> getSupInfo(@SpringQueryMap SpuDTO spuDTO);
+    Result<List<SpuDTO>> getSpuInfo(@SpringQueryMap SpuDTO spuDTO);
 
     @ApiOperation(value = "添加商品信息")
     @PostMapping(value = "goods/save")
@@ -44,12 +44,12 @@ public interface GoodsService {
 
     @ApiOperation(value = "通过spuid查询SpuDetail的信息")
     @GetMapping(value = "goods/getSpuDetailBySpuId")
-    Result<SpuDetailEntity> getSpuDetailBySpuId(Integer spuId);
+    Result<SpuDetailEntity> getSpuDetailBySpuId(@RequestParam  Integer spuId);
 
 
     @ApiOperation(value = "通过spuid查询sku的信息")
     @GetMapping(value = "goods/getSkuBySpuId")
-    Result<List<SkuDTO>> getSkuBySpuId(Integer spuId);
+    Result<List<SkuDTO>> getSkuBySpuId(@RequestParam Integer spuId);
 
 
     @ApiOperation(value = "商品上架和下架")
